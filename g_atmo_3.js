@@ -46,12 +46,7 @@ var bugImg = {
 };
 bugSize = 20;
 
-// alpha images
-var bgAlpha = [0, new Image(), new Image(), new Image(), new Image()]; // bg
-for (var i = 0; i < bgAlpha.length - 1; i++) {
-    var letter = String.fromCharCode(65 + i); // 65 is the ASCII value for 'A'
-    bgAlpha[i].src = './art/atmo1-bgAlpha ' + letter + '.png';
-}
+
 
 var textElement, bugCounter;
 function instruction() {
@@ -136,9 +131,6 @@ for (var i = 1; i < levelBugCoords.length; i++){
 };
 
 function endGame(){
-    for (var i = 0; i < partyGuests.length; i++) {
-        partyGuestMovingStats[i]["dx"] = 0;
-    } 
     var endGameContainer = document.createElement("div");
     endGameContainer.id = "endGame";
 
@@ -146,17 +138,8 @@ function endGame(){
     textElement.innerHTML = "Thanks for cleaning up the apartment! You caught " + totBugs + " bugs.";
     textElement.style.margin = "40px";  // Add margin to the text
 
-    var button1 = document.createElement("button");
-    button1.innerHTML = "Yuck, I'm never doing that again.";
-
-    var button2 = document.createElement("button");
-    button2.innerHTML = "You're welcome!";
-    button1.style.margin, button2.style.margin = "10px";  // Add margin to the button2
-
     document.body.appendChild(endGameContainer);
     endGameContainer.appendChild(textElement);
-    endGameContainer.appendChild(button1);
-    endGameContainer.appendChild(button2);
     
 
 }
@@ -243,6 +226,9 @@ document.onkeydown = function(e) {
             break;
         case 32: 
             console.log("space detected!");
+            if (caughtBugs >= totBugs) {
+                endGame();
+            }
             for (var i = 0; i < levelBugCoords[level].length; i++){
                 console.log("checking level " + [level] + " for highlighted bugs.");
                 if (levelBugCoords[level][i]["HL"] && levelBugCoords[level][i]["on"]){
@@ -266,9 +252,7 @@ document.onkeydown = function(e) {
                         bugCounter.innerHTML = caughtBugs + "/" + totBugs + " bugs caught.";
                 }
             }
-            if (caughtBugs >= totBugs) {
-                endGame();
-            }
+            
         }
     }
 };
