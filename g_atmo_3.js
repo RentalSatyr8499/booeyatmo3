@@ -243,7 +243,7 @@ document.onkeydown = function(e) {
             if (level == 0) {
                 console.log("checking for general highlighted bugs.")
                 for (var i = 0; i < generalBugCoords.length; i++) {
-                    if (generalBugCoords[i]["HL"]) {
+                    if (generalBugCoords[i]["HL"] && generalBugCoords[i]["on"]) {
                         console.log("highlighted bug found!");
                         generalBugCoords[i]["on"] = false;
                         console.log(generalBugCoords);
